@@ -1,7 +1,7 @@
 {
   "name": "entro-version",
   "description": "Creates the correct version number and changelog using git-flow",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "author": "Kerren @Kerren-Entrostat",
   "bin": {
     "entro-version": "./bin/run"
