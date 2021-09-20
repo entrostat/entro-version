@@ -34,9 +34,9 @@ class EntroVersion extends Command {
             description: 'The name of the develop branch',
             default: 'develop',
         }),
-        push: flags.boolean({
+        'no-push': flags.boolean({
             char: 'p',
-            description: 'Whether or not to push the master and develop branches (with tags)',
+            description: 'Do not push the develop and master branches (with --follow-tags) during the release',
             default: false,
         }),
     };
@@ -73,13 +73,13 @@ class EntroVersion extends Command {
 
         await executeCommand(`git checkout ${flags['develop-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
 
-        if (flags.push) {
+        if (!flags['no-push']) {
             await executeCommand(`git push --follow-tags`, this.log, this.error);
         }
 
         await executeCommand(`git checkout ${flags['master-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
 
-        if (flags.push) {
+        if (!flags['no-push']) {
             await executeCommand(`git push --follow-tags`, this.log, this.error);
         }
 
