@@ -1,6 +1,5 @@
 import { Command, flags } from '@oclif/command';
 import { executeCommand } from './execute-command';
-import { exec } from 'child_process';
 
 class EntroVersion extends Command {
     static description = 'Calculates the version using standard-version and a release using git-flow';
@@ -35,11 +34,16 @@ class EntroVersion extends Command {
             description: 'The name of the develop branch',
             default: 'develop',
         }),
+        push: flags.boolean({
+            char: 'p',
+            description: 'Whether or not to push the master and develop branches (with tags)',
+            default: false,
+        }),
     };
 
     static examples = [
         `entro-version`,
-        `entro-version --during-release-post-hook="entro-ci templates:update && git add -A && git commit -am 'Updated the templates'"`,
+        `entro-version --during-release-post-hook="npm run publish && git commit -am 'Updated the readme'"`,
         `entro-version --standard-version-flags="--prerelease='alpha'"`,
         `entro-version --standard-version-flags="--release-as=major"`,
     ];
@@ -68,7 +72,17 @@ class EntroVersion extends Command {
         }
 
         await executeCommand(`git checkout ${flags['develop-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
+
+        if (flags.push) {
+            await executeCommand(`git push --follow-tags`, this.log, this.error);
+        }
+
         await executeCommand(`git checkout ${flags['master-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
+
+        if (flags.push) {
+            await executeCommand(`git push --follow-tags`, this.log, this.error);
+        }
+
         await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
         await executeCommand(`git branch -d release/${newVersion}`, this.log, this.error);
     }
