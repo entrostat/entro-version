@@ -43,7 +43,7 @@ class EntroVersion extends Command {
             char: 'm',
             description:
                 'The description that you would like to give your release (this shows up on the releases page in Github). This also replaces {{version}} with the newly created version if you want to include that in your message.',
-            default: 'Merging release/{{version}}.',
+            default: 'Merging release',
         }),
     };
 
@@ -78,7 +78,7 @@ class EntroVersion extends Command {
             //  got this environment export
             `export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion} -m "${flags['release-message']
                 .replace(/{{version}}/g, newVersion)
-                .replace(/"/g, '\\"')}\n\nRelease version:"`,
+                .replace(/"/g, '\\"')}"`,
             this.log,
             this.error,
         );
