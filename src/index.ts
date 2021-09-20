@@ -25,10 +25,16 @@ class EntroVersion extends Command {
         }),
     };
 
+    static examples = [
+        `entro-version`,
+        `entro-version --during-release-post-hook="entro-ci templates:update && git add -A && git commit -am 'Updated the templates'"`,
+        `entro-version --standard-version-flags="--prerelease='alpha'"`,
+    ];
+
     static args = [];
 
     async run() {
-        const { args, flags } = this.parse(EntroVersion);
+        const { flags } = this.parse(EntroVersion);
         const dryRunOutput = await this.getStandardVersionDryRunOutput();
         const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+)/gim;
         const newVersion = (tagVersionRegex.exec(dryRunOutput) || [])[1];
