@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.10](https://github.com/entrostat/entro-version/compare/v1.2.7...v1.2.10) (2021-09-20)
+
+
+### Bug Fixes
+
+* **release:** Don't use a message file ([a57aed6](https://github.com/entrostat/entro-version/commit/a57aed69e2ed8b8b730c41ab7587b42498385adf))
+* **release:** Specify the release version ([99de432](https://github.com/entrostat/entro-version/commit/99de4323183c08843b2d4e01e4af60f602c62973))
+* **release:** Trying to run releases non-interactively ([ab7628e](https://github.com/entrostat/entro-version/commit/ab7628ef98a9f3526312375d2f28dfa457dbb34c))
+
 ### [1.2.9](https://github.com/entrostat/entro-version/compare/v1.2.7...v1.2.9) (2021-09-20)
 
 
