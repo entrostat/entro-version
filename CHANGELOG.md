@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/entrostat/entro-version/compare/v1.2.1...v1.2.2) (2021-09-20)
+
+
+### Bug Fixes
+
+* **tagging:** Trying to skip tagging from standard-version ([43f4615](https://github.com/entrostat/entro-version/commit/43f461540aebaaf902e175db43c4c0666c8180e8))
+
 ### [1.2.1](https://github.com/entrostat/entro-version/compare/v1.2.0...v1.2.1) (2021-09-20)
 
 
