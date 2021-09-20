@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/entrostat/entro-version/compare/v1.4.4...v1.5.0) (2021-09-20)
+
+
+### Features
+
+* **readme:** Added additional read-world examples of where this could be used ([39c8645](https://github.com/entrostat/entro-version/commit/39c8645ae5725f1753511ba7428f67e039a7301f))
+
 ### [1.4.4](https://github.com/entrostat/entro-version/compare/v1.4.3...v1.4.4) (2021-09-20)
 
 
