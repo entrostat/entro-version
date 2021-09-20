@@ -22,6 +22,7 @@ class EntroVersion extends Command {
             char: 'f',
             description: 'Flags to add to the standard version command',
             multiple: true,
+            default: [],
         }),
     };
 
