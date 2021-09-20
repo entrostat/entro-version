@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/entrostat/entro-version/compare/v1.0.2...v1.0.3) (2021-09-20)
+
+
+### Bug Fixes
+
+* **release:** Don't use git flow to start the release ([713dcc4](https://github.com/entrostat/entro-version/commit/713dcc4bd818affcc1ff11a6e508c6a83e93c8cc))
+
 ### [1.0.2](https://github.com/entrostat/entro-version/compare/v1.0.1...v1.0.2) (2021-09-20)
 
 
