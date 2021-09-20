@@ -22,6 +22,7 @@ class EntroVersion extends Command {
             char: 'f',
             description: 'Flags to add to the standard version command',
             multiple: true,
+            default: [],
         }),
     };
 
@@ -29,13 +30,14 @@ class EntroVersion extends Command {
         `entro-version`,
         `entro-version --during-release-post-hook="entro-ci templates:update && git add -A && git commit -am 'Updated the templates'"`,
         `entro-version --standard-version-flags="--prerelease='alpha'"`,
+        `entro-version --standard-version-flags="--release-as=major"`,
     ];
 
     static args = [];
 
     async run() {
         const { flags } = this.parse(EntroVersion);
-        const dryRunOutput = await this.getStandardVersionDryRunOutput();
+        const dryRunOutput = await this.getStandardVersionDryRunOutput(flags['standard-version-flags']);
         const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+)/gim;
         const newVersion = (tagVersionRegex.exec(dryRunOutput) || [])[1];
 
@@ -72,8 +74,8 @@ class EntroVersion extends Command {
         }
     }
 
-    private async getStandardVersionDryRunOutput() {
-        return await this.standardVersionRun(['--dry-run']);
+    private async getStandardVersionDryRunOutput(flags: string[]) {
+        return await this.standardVersionRun(flags.concat(['--dry-run']));
     }
 
     private async standardVersionRun(flags: string[] = []) {
