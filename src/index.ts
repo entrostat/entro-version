@@ -1,5 +1,6 @@
 import { Command, flags } from '@oclif/command';
 import { executeCommand } from './execute-command';
+import { exec } from 'child_process';
 
 class EntroVersion extends Command {
     static description = 'Calculates the version using standard-version and a release using git-flow';
@@ -23,6 +24,16 @@ class EntroVersion extends Command {
             description: 'Flags to add to the standard version command',
             multiple: true,
             default: [],
+        }),
+        'master-branch-name': flags.string({
+            char: 'm',
+            description: 'The name of the master branch',
+            default: 'master',
+        }),
+        'develop-branch-name': flags.string({
+            char: 'd',
+            description: 'The name of the develop branch',
+            default: 'develop',
         }),
     };
 
@@ -56,13 +67,9 @@ class EntroVersion extends Command {
             await executeCommand(flags['during-release-post-hook'], this.log, this.error);
         }
 
-        try {
-            await executeCommand(`git flow release finish ${newVersion}`, this.log, this.warn);
-        } catch (e) {
-            // At this point the release has been merged but the branch has not
-            // been deleted because it failed to create the tag.
-            await executeCommand(`git branch -d release/${newVersion}`, this.log, this.warn);
-        }
+        await executeCommand(`git checkout ${flags['master-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
+        await executeCommand(`git checkout ${flags['develop-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
+        await executeCommand(`git branch -d release/${newVersion}`, this.log, this.error);
     }
 
     private async standardVersionExists() {
