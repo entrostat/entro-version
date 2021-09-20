@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/entrostat/entro-version/compare/v1.2.0...v1.2.1) (2021-09-20)
+
+
+### Bug Fixes
+
+* **push:** Rather make it a negative flag ([dd2d221](https://github.com/entrostat/entro-version/commit/dd2d221d4a5ef08d7b3fb0fca2882aedc08b9d3d))
+* **release:** Removed the --push flag from the release script ([46461ca](https://github.com/entrostat/entro-version/commit/46461ca6e0a09b65583ecb5d5dd64e5669fd9ad3))
+
 ## [1.2.0](https://github.com/entrostat/entro-version/compare/v1.1.0...v1.2.0) (2021-09-20)
 
 

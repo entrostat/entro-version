@@ -1,7 +1,7 @@
 {
   "name": "entro-version",
   "description": "Creates the correct version number and changelog using git-flow",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Kerren @Kerren-Entrostat",
   "bin": {
     "entro-version": "./bin/run"
@@ -61,7 +61,7 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md",
-    "release": "./bin/run --push --during-release-post-hook=\"npm publish && git commit -am 'Updated the readme'\""
+    "release": "./bin/run --during-release-post-hook=\"npm publish && git commit -am 'Updated the readme'\""
   },
   "types": "lib/index.d.ts"
 }
