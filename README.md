@@ -10,6 +10,12 @@ It's a bit annoying when you use `git-flow` and `standard-version` in the same p
 
 This CLI was made with the intention to combine them both together so that you can have proper `git-flow` releases while using `standard-version` to generate the version and changelog. You can use it in it's simplest form by running `entro-version` on the develop branch, or you can make it more complicated by adding release hooks. For instance, if you need to generate some `.yaml` files with the new version number or something like that, then you'd run a `post-hook` where it'll create the `.yaml` files and commit them before completing the release. I'm using this CLI to run releases for this CLI :P So check after `v1.2.11` in the changelog for a working example... It took me that long to get this working :P!
 
+Each time I make a change and I'm ready for a release, I run `npm run release` which in turn runs:
+
+```
+./bin/run --during-release-post-hook="npm publish && git commit -am 'Updated the readme'"
+```
+
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
