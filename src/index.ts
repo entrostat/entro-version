@@ -71,20 +71,20 @@ class EntroVersion extends Command {
             await executeCommand(flags['during-release-post-hook'], this.log, this.error);
         }
 
-        await executeCommand(`git checkout ${flags['develop-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
+        await executeCommand(`git flow release finish ${newVersion}`, this.log, this.error);
+        await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
 
         if (!flags['no-push']) {
             await executeCommand(`git push --follow-tags`, this.log, this.error);
         }
 
-        await executeCommand(`git checkout ${flags['master-branch-name']} && git merge release/${newVersion}`, this.log, this.error);
+        await executeCommand(`git checkout ${flags['master-branch-name']}`, this.log, this.error);
 
         if (!flags['no-push']) {
             await executeCommand(`git push --follow-tags`, this.log, this.error);
         }
 
         await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
-        // await executeCommand(`git flow release finish ${newVersion}`, this.log, this.error);
     }
 
     private async standardVersionExists() {
