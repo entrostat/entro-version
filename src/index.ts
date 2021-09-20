@@ -18,6 +18,11 @@ class EntroVersion extends Command {
             description: 'Do not sign during the release using your GPG key',
             default: false,
         }),
+        'standard-version-flags': flags.string({
+            char: 'f',
+            description: 'Flags to add to the standard version command',
+            multiple: true,
+        }),
     };
 
     static args = [];
@@ -34,9 +39,9 @@ class EntroVersion extends Command {
         }
 
         if (flags['no-sign']) {
-            await executeCommand('standard-version', this.log, this.warn);
+            await executeCommand(`standard-version ${flags['standard-version-flags'].join(' ')}`, this.log, this.warn);
         } else {
-            await executeCommand('standard-version --sign', this.log, this.warn);
+            await executeCommand(`standard-version ${flags['standard-version-flags'].concat(['--sign']).join(' ')}`, this.log, this.warn);
         }
 
         if (flags['during-release-hook-post']) {
