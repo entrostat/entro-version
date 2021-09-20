@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.11](https://github.com/entrostat/entro-version/compare/v1.2.10...v1.2.11) (2021-09-20)
+
+
+### Bug Fixes
+
+* **push:** Added the pushing to master and develop remote ([5bde782](https://github.com/entrostat/entro-version/commit/5bde78282008a0eed9d5ef8b7c93b5c5b3a4fa00))
+
 ### [1.2.10](https://github.com/entrostat/entro-version/compare/v1.2.7...v1.2.10) (2021-09-20)
 
 
