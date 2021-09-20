@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/entrostat/entro-version/compare/v1.0.5...v1.0.6) (2021-09-20)
+
+
+### Bug Fixes
+
+* **keywords:** Added keywords for the npm search ([6fbbc84](https://github.com/entrostat/entro-version/commit/6fbbc84051a322b58937e03a4621285968f7dd4e))
+
 ### [1.0.5](https://github.com/entrostat/entro-version/compare/v1.0.4...v1.0.5) (2021-09-20)
 
 

@@ -1,7 +1,7 @@
 {
   "name": "entro-version",
   "description": "Creates the correct version number and changelog using git-flow",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Kerren @Kerren-Entrostat",
   "bin": {
     "entro-version": "./bin/run"
@@ -38,7 +38,17 @@
   ],
   "homepage": "https://github.com/entrostat/entro-version",
   "keywords": [
-    "oclif"
+    "oclif",
+    "cli",
+    "version",
+    "standard",
+    "standard-version",
+    "git",
+    "flow",
+    "git-flow",
+    "release",
+    "tag",
+    "tagging"
   ],
   "license": "MIT",
   "main": "lib/index.js",
