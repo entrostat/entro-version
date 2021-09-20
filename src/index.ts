@@ -51,6 +51,8 @@ class EntroVersion extends Command {
         try {
             await executeCommand(`git flow release finish ${newVersion}`, this.log, this.warn);
         } catch (e) {
+            // At this point the release has been merged but the branch has not
+            // been deleted because it failed to create the tag.
             await executeCommand(`git branch -d release/${newVersion}`, this.log, this.warn);
         }
     }
