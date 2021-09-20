@@ -27,7 +27,7 @@ $ npm install -g entro-version
 $ entro-version COMMAND
 running command...
 $ entro-version (-v|--version|version)
-entro-version/1.2.11 linux-x64 node-v14.17.3
+entro-version/1.2.12 linux-x64 node-v14.17.3
 $ entro-version --help [COMMAND]
 USAGE
   $ entro-version COMMAND
