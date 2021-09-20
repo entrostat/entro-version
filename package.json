@@ -38,7 +38,17 @@
   ],
   "homepage": "https://github.com/entrostat/entro-version",
   "keywords": [
-    "oclif"
+    "oclif",
+    "cli",
+    "version",
+    "standard",
+    "standard-version",
+    "git",
+    "flow",
+    "git-flow",
+    "release",
+    "tag",
+    "tagging"
   ],
   "license": "MIT",
   "main": "lib/index.js",
