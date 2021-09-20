@@ -36,7 +36,7 @@ Below are a few real world examples that may help you determine how to use this 
 
 ## Handlebars Templates
 
-Let's assume you use `entro-ci` which allows you to compile Handlebars templates using the version of the repo. In this case, you could trigger the creation of the templates within the `git-flow` release using the following in your `package.json`:
+Let's assume you use [entro-ci](https://www.npmjs.com/package/entro-ci) which allows you to compile Handlebars templates using the version of the repo. In this case, you could trigger the creation of the templates within the `git-flow` release using the following in your `package.json`:
 
 ```json
 {
