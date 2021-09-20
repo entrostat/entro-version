@@ -17,10 +17,20 @@ Each time I make a change and I'm ready for a release, I run `npm run release` w
 ./bin/run --during-release-post-hook="npm publish && git commit -am 'Updated the readme'"
 ```
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+# Installation Instructions
+
+The easiest way to use this is to include it as a dev dependency or to install it globally. Assuming you've installed it globally:
+
+```bash
+npm install -g entro-version
+```
+
+You would now be able to use it in a `git-flow` context. So you can cd into your repo and simply run `entro-version` to release a new version. To get some examples of how the CLI can be used, run:
+
+```bash
+entro-version --help
+```
+
 # Usage
 <!-- usage -->
 ```sh-session
@@ -35,7 +45,3 @@ USAGE
 ...
 ```
 <!-- usagestop -->
-# Commands
-<!-- commands -->
-
-<!-- commandsstop -->
