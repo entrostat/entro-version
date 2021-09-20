@@ -39,9 +39,9 @@ class EntroVersion extends Command {
         }
 
         if (flags['no-sign']) {
-            await executeCommand(`standard-version ${flags['standard-version-flags'].join(' ')}`, this.log, this.warn);
+            await this.standardVersionRun(flags['standard-version-flags']);
         } else {
-            await executeCommand(`standard-version ${flags['standard-version-flags'].concat(['--sign']).join(' ')}`, this.log, this.warn);
+            await this.standardVersionRun(flags['standard-version-flags'].concat(['--sign']));
         }
 
         if (flags['during-release-hook-post']) {
@@ -65,11 +65,15 @@ class EntroVersion extends Command {
     }
 
     private async getStandardVersionDryRunOutput() {
-        if (await this.standardVersionExists()) {
-            return await executeCommand('standard-version --dry-run', this.log, this.warn);
-        } else {
-            return await executeCommand('npx standard-version --dry-run', this.log, this.warn);
-        }
+        return await this.standardVersionRun(['--dry-run']);
+    }
+
+    private async standardVersionRun(flags: string[] = []) {
+        return await executeCommand(`${await this.standardVersionBin()} ${flags.join(' ')}`, this.log, this.warn);
+    }
+
+    private async standardVersionBin() {
+        return (await this.standardVersionExists()) ? 'standard-version' : 'npx standard-version';
     }
 }
 
