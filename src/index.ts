@@ -71,7 +71,7 @@ class EntroVersion extends Command {
             await executeCommand(flags['during-release-post-hook'], this.log, this.error);
         }
 
-        await executeCommand(`git flow release finish ${newVersion} -f`, this.log, this.error);
+        await executeCommand(`export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion}`, this.log, this.error);
         // await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
         //
         // if (!flags['no-push']) {
