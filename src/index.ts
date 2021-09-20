@@ -25,7 +25,7 @@ class EntroVersion extends Command {
             default: [],
         }),
         'master-branch-name': flags.string({
-            char: 'm',
+            char: 'M',
             description: 'The name of the master branch',
             default: 'master',
         }),
@@ -38,6 +38,12 @@ class EntroVersion extends Command {
             char: 'p',
             description: 'Do not push the develop and master branches (with --follow-tags) during the release',
             default: false,
+        }),
+        'release-message': flags.string({
+            char: 'm',
+            description:
+                'The description that you would like to give your release (this shows up on the releases page in Github). This also replaces {{version}} with the newly created version if you want to include that in your message.',
+            default: 'Merging release/{{version}}.',
         }),
     };
 
@@ -70,7 +76,9 @@ class EntroVersion extends Command {
         await executeCommand(
             // See https://stackoverflow.com/a/14553458/3016520 for info on how I
             //  got this environment export
-            `export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion} -m "Merging release/${newVersion}"`,
+            `export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion} -m "${flags['release-message']
+                .replace(/{{version}}/g, newVersion)
+                .replace(/"/g, '\\"')}"`,
             this.log,
             this.error,
         );
