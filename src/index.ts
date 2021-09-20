@@ -61,34 +61,34 @@ class EntroVersion extends Command {
             await executeCommand(flags['during-release-pre-hook'], this.log, this.error);
         }
 
-        if (flags['no-sign']) {
-            await this.standardVersionRun(flags['standard-version-flags'].concat(['--skip.tag']));
-        } else {
-            await this.standardVersionRun(flags['standard-version-flags'].concat(['--sign', '--skip.tag']));
-        }
+        await this.standardVersionRun(flags['standard-version-flags'].concat(['--skip.tag', flags['no-sign'] ? '' : '--sign']));
 
         if (flags['during-release-post-hook']) {
             await executeCommand(flags['during-release-post-hook'], this.log, this.error);
         }
 
         await executeCommand(
+            // See https://stackoverflow.com/a/14553458/3016520 for info on how I
+            //  got this environment export
             `export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion} -m "Merging release/${newVersion}"`,
             this.log,
             this.error,
         );
-        await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
+        await this.pushBranches(flags['master-branch-name'], flags['develop-branch-name'], flags['no-push']);
+    }
 
-        if (!flags['no-push']) {
+    private async pushBranches(masterBranchName: string, developBranchName: string, noPush: boolean) {
+        await executeCommand(`git checkout ${developBranchName}`, this.log, this.error);
+        await this.pushFollowTags(!noPush);
+        await executeCommand(`git checkout ${masterBranchName}`, this.log, this.error);
+        await this.pushFollowTags(!noPush);
+        await executeCommand(`git checkout ${developBranchName}`, this.log, this.error);
+    }
+
+    private async pushFollowTags(shouldPush: boolean) {
+        if (shouldPush) {
             await executeCommand(`git push --follow-tags`, this.log, this.error);
         }
-
-        await executeCommand(`git checkout ${flags['master-branch-name']}`, this.log, this.error);
-
-        if (!flags['no-push']) {
-            await executeCommand(`git push --follow-tags`, this.log, this.error);
-        }
-
-        await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
     }
 
     private async standardVersionExists() {
