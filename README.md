@@ -31,10 +31,10 @@ You would now be able to use it in a `git-flow` context. So you can cd into your
 entro-version --help
 ```
 
-## Some Handy Examples
+# Some Handy Examples
 Below are a few real world examples that may help you determine how to use this in your project.
 
-### Handlebars Templates
+## Handlebars Templates
 
 Let's assume you use `entro-ci` which allows you to compile Handlebars templates using the version of the repo. In this case, you could trigger the creation of the templates within the `git-flow` release using the following in your `package.json`:
 
@@ -46,7 +46,7 @@ Let's assume you use `entro-ci` which allows you to compile Handlebars templates
 }
 ```
 
-### NPM Package Publishing
+## NPM Package Publishing
 
 Maybe, like this package, you want to publish this to [https://npmjs.com](npmjs.com). In that case, you could trigger the publish during the release by adding the following to your `package.json`:
 
