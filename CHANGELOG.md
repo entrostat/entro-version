@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/entrostat/entro-version/compare/v1.3.2...v1.4.0) (2021-09-20)
+
+
+### Features
+
+* **license:** Added the license to the project ([0e691c0](https://github.com/entrostat/entro-version/commit/0e691c036622d7cd72728a4c1240b66e16085c5b))
+
 ### [1.3.2](https://github.com/entrostat/entro-version/compare/v1.3.1...v1.3.2) (2021-09-20)
 
 
