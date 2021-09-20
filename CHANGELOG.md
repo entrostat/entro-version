@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.7](https://github.com/entrostat/entro-version/compare/v1.2.1...v1.2.7) (2021-09-20)
+
+
+### Bug Fixes
+
+* **release:** Adding more around the message and tag name ([489e987](https://github.com/entrostat/entro-version/commit/489e987b8c596b08d2da2ec7c0e742ef09ab193c))
+* **release:** Don't run a merge without finishing the release ([22cb28d](https://github.com/entrostat/entro-version/commit/22cb28d2cd3ecec1330632e341d0a84c39a6b5bd))
+* **release:** Git flow seems to hang. testing with dry run ([8783c56](https://github.com/entrostat/entro-version/commit/8783c562a9c36d815d8a7a704556c0fd9ea0ee63))
+* **release:** Trying to leave out release finish to see what commands we can run there ([967e2b7](https://github.com/entrostat/entro-version/commit/967e2b70ad64f241bf981ba10986fe55b27f3780))
+* **release:** Use git-flow to start and finish releases ([0e2c9c6](https://github.com/entrostat/entro-version/commit/0e2c9c6a108def0451622cb5d37a0ca0549761bc))
+* **tagging:** Trying to skip tagging from standard-version ([43f4615](https://github.com/entrostat/entro-version/commit/43f461540aebaaf902e175db43c4c0666c8180e8))
+
 ### [1.2.6](https://github.com/entrostat/entro-version/compare/v1.2.1...v1.2.6) (2021-09-20)
 
 
