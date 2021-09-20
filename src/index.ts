@@ -78,7 +78,7 @@ class EntroVersion extends Command {
             //  got this environment export
             `export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion} -m "${flags['release-message']
                 .replace(/{{version}}/g, newVersion)
-                .replace(/"/g, '\\"')}"`,
+                .replace(/"/g, '\\"')}\n\nRelease version:"`,
             this.log,
             this.error,
         );
