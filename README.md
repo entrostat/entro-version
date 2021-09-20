@@ -6,8 +6,6 @@ entro-version
 [![Downloads/week](https://img.shields.io/npm/dw/entro-version.svg?style=for-the-badge)](https://npmjs.org/package/entro-version)
 [![License](https://img.shields.io/npm/l/entro-version.svg?style=for-the-badge)](https://github.com/entrostat/entro-version/blob/master/package.json)
 
-[![NPM](https://nodei.co/npm/entro-version.png)](https://nodei.co/npm/entro-version/)
-
 
 It's a bit annoying when you use `git-flow` and `standard-version` in the same project because you want to know the version before you create the release branch. So you need to run `standard-version` as a dry run to get that to make the release. You also need to ensure that the release itself has the correct changes and tag so that the changelog gets generated correctly.
 
