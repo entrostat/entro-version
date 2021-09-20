@@ -52,7 +52,7 @@ class EntroVersion extends Command {
         const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+)/gim;
         const newVersion = (tagVersionRegex.exec(dryRunOutput) || [])[1];
 
-        await executeCommand(`git flow release start ${newVersion}`, this.log, this.warn);
+        await executeCommand(`git checkout -b release/${newVersion}`, this.log, this.warn);
         if (flags['during-release-pre-hook']) {
             await executeCommand(flags['during-release-pre-hook'], this.log, this.error);
         }
