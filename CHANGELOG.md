@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/entrostat/entro-version/compare/v1.0.4...v1.0.5) (2021-09-20)
+
+
+### Bug Fixes
+
+* **releases:** Merge into develop first and then master ([dbcf92e](https://github.com/entrostat/entro-version/commit/dbcf92ed1ceb5d60026cafa00594591076af0567))
+
 ### [1.0.4](https://github.com/entrostat/entro-version/compare/v1.0.3...v1.0.4) (2021-09-20)
 
 
