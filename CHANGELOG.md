@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/entrostat/entro-version/compare/v1.2.12...v1.3.0) (2021-09-20)
+
+
+### Features
+
+* **release:** Added the ability to specify the release message ([1977a02](https://github.com/entrostat/entro-version/commit/1977a02f151fa8d3795afe98875f18203fd79a4a))
+
 ### [1.2.12](https://github.com/entrostat/entro-version/compare/v1.2.11...v1.2.12) (2021-09-20)
 
 
