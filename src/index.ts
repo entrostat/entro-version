@@ -84,7 +84,7 @@ class EntroVersion extends Command {
         }
 
         await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
-        await executeCommand(`git flow release finish ${newVersion}`, this.log, this.error);
+        // await executeCommand(`git flow release finish ${newVersion}`, this.log, this.error);
     }
 
     private async standardVersionExists() {
