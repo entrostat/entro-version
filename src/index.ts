@@ -5,11 +5,11 @@ class EntroVersion extends Command {
     static description = 'Calculates the version using standard-version and a release using git-flow';
 
     static flags = {
-        'during-release-hook-pre': flags.string({
+        'during-release-pre-hook': flags.string({
             char: 'p',
             description: 'Any commands to run during the release, before standard-version',
         }),
-        'during-release-hook-post': flags.string({
+        'during-release-post-hook': flags.string({
             char: 'P',
             description: 'Any commands to run during the release, after standard-version',
         }),
@@ -34,8 +34,8 @@ class EntroVersion extends Command {
         const newVersion = (tagVersionRegex.exec(dryRunOutput) || [])[1];
 
         await executeCommand(`git flow release start ${newVersion}`, this.log, this.warn);
-        if (flags['during-release-hook-pre']) {
-            await executeCommand(flags['during-release-hook-pre'], this.log, this.error);
+        if (flags['during-release-pre-hook']) {
+            await executeCommand(flags['during-release-pre-hook'], this.log, this.error);
         }
 
         if (flags['no-sign']) {
@@ -44,8 +44,8 @@ class EntroVersion extends Command {
             await this.standardVersionRun(flags['standard-version-flags'].concat(['--sign']));
         }
 
-        if (flags['during-release-hook-post']) {
-            await executeCommand(flags['during-release-hook-post'], this.log, this.error);
+        if (flags['during-release-post-hook']) {
+            await executeCommand(flags['during-release-post-hook'], this.log, this.error);
         }
 
         try {
