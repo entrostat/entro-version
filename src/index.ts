@@ -62,9 +62,9 @@ class EntroVersion extends Command {
         }
 
         if (flags['no-sign']) {
-            await this.standardVersionRun(flags['standard-version-flags']);
+            await this.standardVersionRun(flags['standard-version-flags'].concat(['--skip.tag']));
         } else {
-            await this.standardVersionRun(flags['standard-version-flags'].concat(['--sign']));
+            await this.standardVersionRun(flags['standard-version-flags'].concat(['--sign', '--skip.tag']));
         }
 
         if (flags['during-release-post-hook']) {
