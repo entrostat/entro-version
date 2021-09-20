@@ -76,19 +76,19 @@ class EntroVersion extends Command {
             this.log,
             this.error,
         );
-        // await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
-        //
-        // if (!flags['no-push']) {
-        //     await executeCommand(`git push --follow-tags`, this.log, this.error);
-        // }
-        //
-        // await executeCommand(`git checkout ${flags['master-branch-name']}`, this.log, this.error);
-        //
-        // if (!flags['no-push']) {
-        //     await executeCommand(`git push --follow-tags`, this.log, this.error);
-        // }
-        //
-        // await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
+        await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
+
+        if (!flags['no-push']) {
+            await executeCommand(`git push --follow-tags`, this.log, this.error);
+        }
+
+        await executeCommand(`git checkout ${flags['master-branch-name']}`, this.log, this.error);
+
+        if (!flags['no-push']) {
+            await executeCommand(`git push --follow-tags`, this.log, this.error);
+        }
+
+        await executeCommand(`git checkout ${flags['develop-branch-name']}`, this.log, this.error);
     }
 
     private async standardVersionExists() {
