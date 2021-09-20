@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.5](https://github.com/entrostat/entro-version/compare/v1.2.1...v1.2.5) (2021-09-20)
+
+
+### Bug Fixes
+
+* **release:** Don't run a merge without finishing the release ([22cb28d](https://github.com/entrostat/entro-version/commit/22cb28d2cd3ecec1330632e341d0a84c39a6b5bd))
+* **release:** Trying to leave out release finish to see what commands we can run there ([967e2b7](https://github.com/entrostat/entro-version/commit/967e2b70ad64f241bf981ba10986fe55b27f3780))
+* **release:** Use git-flow to start and finish releases ([0e2c9c6](https://github.com/entrostat/entro-version/commit/0e2c9c6a108def0451622cb5d37a0ca0549761bc))
+* **tagging:** Trying to skip tagging from standard-version ([43f4615](https://github.com/entrostat/entro-version/commit/43f461540aebaaf902e175db43c4c0666c8180e8))
+
 ### [1.2.4](https://github.com/entrostat/entro-version/compare/v1.2.1...v1.2.4) (2021-09-20)
 
 
