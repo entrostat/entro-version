@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/entrostat/entro-version/compare/v1.0.6...v1.1.0) (2021-09-20)
+
+
+### Features
+
+* **release:** Added a "self" release script ([918841d](https://github.com/entrostat/entro-version/commit/918841dc54bc7273de9f5ecc529b8ac9e6bcbf63))
+
 ### [1.0.6](https://github.com/entrostat/entro-version/compare/v1.0.5...v1.0.6) (2021-09-20)
 
 
