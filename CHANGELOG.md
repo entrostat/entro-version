@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.4](https://github.com/entrostat/entro-version/compare/v1.4.3...v1.4.4) (2021-09-20)
+
+
+### Bug Fixes
+
+* **readme:** Removed the commands section and added additional info around how to use the tool ([2d83795](https://github.com/entrostat/entro-version/commit/2d83795999aa7bf832f4899d4d0a359fefb75240))
+
 ### [1.4.3](https://github.com/entrostat/entro-version/compare/v1.4.2...v1.4.3) (2021-09-20)
 
 
