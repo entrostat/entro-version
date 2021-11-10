@@ -51,6 +51,12 @@ class EntroVersion extends Command {
             description:
                 'If the release must be generated from any branch other than develop (eg. master) then you would specify this base branch. Leave this empty if there it is not required.',
         }),
+        'skip-base-branch-merge-to-develop': flags.boolean({
+            char: 'B',
+            default: false,
+            description:
+                'If the --base-branch option is specified, it will automatically merge into develop after the release is completed. If you would like to skip this merge then use this flag. This might be useful if you want to create a release on a staging branch or something to that effect.',
+        }),
     };
 
     static examples = [
@@ -68,6 +74,7 @@ class EntroVersion extends Command {
         const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+)/gim;
         const newVersion = (tagVersionRegex.exec(dryRunOutput) || [])[1];
         const baseBranch = flags['base-branch'] || flags['develop-branch-name'];
+        const differentBaseBranch = flags['base-branch'] && flags['base-branch'] !== flags['develop-branch-name'];
 
         await executeCommand(`git flow release start ${newVersion} ${baseBranch}`, this.log, this.warn);
         if (flags['during-release-pre-hook']) {
@@ -89,7 +96,20 @@ class EntroVersion extends Command {
             this.log,
             this.error,
         );
+
+        if (differentBaseBranch && !flags['skip-base-branch-merge-to-develop']) {
+            // In this case develop is not being used to create the release so once
+            // the release exists, we need to merge it into develop
+            await this.mergeMasterIntoDevelop(flags['master-branch-name'], flags['develop-branch-name']);
+        }
+
         await this.pushBranches(flags['master-branch-name'], flags['develop-branch-name'], flags['no-push']);
+    }
+
+    private async mergeMasterIntoDevelop(masterBranchName: string, developBranchName: string) {
+        await executeCommand(`git checkout ${developBranchName}`, this.log, this.error);
+        await executeCommand(`git merge ${masterBranchName}`, this.log, this.error);
+        await executeCommand(`git checkout ${masterBranchName}`, this.log, this.error);
     }
 
     private async pushBranches(masterBranchName: string, developBranchName: string, noPush: boolean) {
