@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/entrostat/entro-version/compare/v1.6.0...v1.7.0) (2021-11-10)
+
+
+### Features
+
+* **base-branch:** Added the ability to merge the base branch into develop and a flag to skip this action ([44efc87](https://github.com/entrostat/entro-version/commit/44efc87313eb61bec2a3df898a682cc6904511ff))
+
 ## [1.6.0](https://github.com/entrostat/entro-version/compare/v1.5.0...v1.6.0) (2021-11-10)
 
 
