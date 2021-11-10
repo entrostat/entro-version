@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/entrostat/entro-version/compare/v1.5.0...v1.6.0) (2021-11-10)
+
+
+### Features
+
+* **base-branch:** Added the ability to change the base branch that the release comes from ([742e5f6](https://github.com/entrostat/entro-version/commit/742e5f63a2d3b5bbbd669b3cb6eae4895a22eadc))
+
 ## [1.5.0](https://github.com/entrostat/entro-version/compare/v1.4.4...v1.5.0) (2021-09-20)
 
 

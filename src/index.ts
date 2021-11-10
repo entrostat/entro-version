@@ -45,6 +45,12 @@ class EntroVersion extends Command {
                 'The description that you would like to give your release (this shows up on the releases page in Github). This also replaces {{version}} with the newly created version if you want to include that in your message.',
             default: 'Merging release',
         }),
+        'base-branch': flags.string({
+            char: 'b',
+            required: false,
+            description:
+                'If the release must be generated from any branch other than develop (eg. master) then you would specify this base branch. Leave this empty if there it is not required.',
+        }),
     };
 
     static examples = [
@@ -61,8 +67,9 @@ class EntroVersion extends Command {
         const dryRunOutput = await this.getStandardVersionDryRunOutput(flags['standard-version-flags']);
         const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+)/gim;
         const newVersion = (tagVersionRegex.exec(dryRunOutput) || [])[1];
+        const baseBranch = flags['base-branch'] || flags['develop-branch-name'];
 
-        await executeCommand(`git flow release start ${newVersion}`, this.log, this.warn);
+        await executeCommand(`git flow release start ${newVersion} ${baseBranch}`, this.log, this.warn);
         if (flags['during-release-pre-hook']) {
             await executeCommand(flags['during-release-pre-hook'], this.log, this.error);
         }
