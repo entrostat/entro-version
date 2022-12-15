@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [2.0.1](https://github.com/entrostat/entro-version/compare/v2.0.0...v2.0.1) (2022-12-15)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/plugin-help from 5.1.19 to 5.1.20 ([e8feabf](https://github.com/entrostat/entro-version/commit/e8feabf2a99880c16e8ac6fc8b8f87be7371be0f))
+* **deps:** bump @oclif/plugin-plugins from 2.1.7 to 2.1.8 ([5de2eaf](https://github.com/entrostat/entro-version/commit/5de2eaf8f09a2416ff14d70d5f04acb743afe132))
+
 ## [2.0.0](https://github.com/entrostat/entro-version/compare/v1.7.0...v2.0.0) (2022-12-15)
 
 
