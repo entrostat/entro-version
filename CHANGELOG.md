@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [2.0.2](https://github.com/entrostat/entro-version/compare/v2.0.1...v2.0.2) (2022-12-15)
+
+
+### Bug Fixes
+
+* **build:** Set the node version to 14 ([4e176f9](https://github.com/entrostat/entro-version/commit/4e176f9491e6360d6a8f47caaec453276dbdc1bc))
+
 ### [2.0.1](https://github.com/entrostat/entro-version/compare/v2.0.0...v2.0.1) (2022-12-15)
 
 
