@@ -72,7 +72,7 @@ $ npm install -g entro-version
 $ entro-version COMMAND
 running command...
 $ entro-version (--version)
-entro-version/2.0.2 linux-x64 node-v16.15.0
+entro-version/3.0.0 linux-x64 node-v16.15.0
 $ entro-version --help [COMMAND]
 USAGE
   $ entro-version COMMAND
@@ -150,7 +150,7 @@ EXAMPLES
   $ entro-version release --commit-and-tag-version-flag="--release-as=major"
 ```
 
-_See code: [dist/commands/release.ts](https://github.com/entrostat/entro-version/blob/v2.0.2/dist/commands/release.ts)_
+_See code: [dist/commands/release.ts](https://github.com/entrostat/entro-version/blob/v3.0.0/dist/commands/release.ts)_
 
 ## `entro-version version:get`
 
@@ -180,7 +180,7 @@ EXAMPLES
   $ entro-version version:get --prefix="staging-v"
 ```
 
-_See code: [dist/commands/version/get.ts](https://github.com/entrostat/entro-version/blob/v2.0.2/dist/commands/version/get.ts)_
+_See code: [dist/commands/version/get.ts](https://github.com/entrostat/entro-version/blob/v3.0.0/dist/commands/version/get.ts)_
 
 ## `entro-version version:next`
 
@@ -205,5 +205,5 @@ EXAMPLES
   $ entro-version version:next --prefix=v
 ```
 
-_See code: [dist/commands/version/next.ts](https://github.com/entrostat/entro-version/blob/v2.0.2/dist/commands/version/next.ts)_
+_See code: [dist/commands/version/next.ts](https://github.com/entrostat/entro-version/blob/v3.0.0/dist/commands/version/next.ts)_
 <!-- commandsstop -->
