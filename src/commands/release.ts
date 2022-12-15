@@ -89,14 +89,14 @@ export default class Release extends Command {
 
         await executeCommand(
             `git flow release start ${newVersion} ${baseBranch}`,
-            this.log,
-            this.warn,
+            this.log.bind(this),
+            this.warn.bind(this),
         );
         if (flags['during-release-pre-hook']) {
             await executeCommand(
                 flags['during-release-pre-hook'],
-                this.log,
-                this.error,
+                this.log.bind(this),
+                this.error.bind(this),
             );
         }
 
@@ -110,8 +110,8 @@ export default class Release extends Command {
         if (flags['during-release-post-hook']) {
             await executeCommand(
                 flags['during-release-post-hook'],
-                this.log,
-                this.error,
+                this.log.bind(this),
+                this.error.bind(this),
             );
         }
 
@@ -123,8 +123,8 @@ export default class Release extends Command {
             ]
                 .replace(/{{version}}/g, newVersion)
                 .replace(/"/g, '\\"')}"`,
-            this.log,
-            this.error,
+            this.log.bind(this),
+            this.error.bind(this),
         );
 
         if (
@@ -152,18 +152,18 @@ export default class Release extends Command {
     ) {
         await executeCommand(
             `git checkout ${developBranchName}`,
-            this.log,
-            this.error,
+            this.log.bind(this),
+            this.error.bind(this),
         );
         await executeCommand(
             `git merge ${masterBranchName}`,
-            this.log,
-            this.error,
+            this.log.bind(this),
+            this.error.bind(this),
         );
         await executeCommand(
             `git checkout ${masterBranchName}`,
-            this.log,
-            this.error,
+            this.log.bind(this),
+            this.error.bind(this),
         );
     }
 
@@ -174,20 +174,20 @@ export default class Release extends Command {
     ) {
         await executeCommand(
             `git checkout ${developBranchName}`,
-            this.log,
-            this.error,
+            this.log.bind(this),
+            this.error.bind(this),
         );
         await this.pushFollowTags(!noPush);
         await executeCommand(
             `git checkout ${masterBranchName}`,
-            this.log,
-            this.error,
+            this.log.bind(this),
+            this.error.bind(this),
         );
         await this.pushFollowTags(!noPush);
         await executeCommand(
             `git checkout ${developBranchName}`,
-            this.log,
-            this.error,
+            this.log.bind(this),
+            this.error.bind(this),
         );
     }
 
@@ -195,8 +195,8 @@ export default class Release extends Command {
         if (shouldPush) {
             await executeCommand(
                 'git push --follow-tags',
-                this.log,
-                this.error,
+                this.log.bind(this),
+                this.error.bind(this),
             );
         }
     }
