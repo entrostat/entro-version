@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/entrostat/entro-version/compare/v2.0.2...v3.0.0) (2022-12-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **defaults:** Removed the default command, this will lead to entro-version not working on repos that don't update the command usage
+
+### Features
+
+* **defaults:** Removed the default command, this will lead to entro-version not working on repos that don't update the command usage ([612c3e3](https://github.com/entrostat/entro-version/commit/612c3e329a208fc60878f51710068fb17e1b9929))
+
 ### [2.0.2](https://github.com/entrostat/entro-version/compare/v2.0.1...v2.0.2) (2022-12-15)
 
 
