@@ -134,13 +134,13 @@ export default class Release extends Command {
             // In this case develop is not being used to create the release so once
             // the release exists, we need to merge it into develop
             await this.mergeMasterIntoDevelop(
-                flags['master-branch-name'],
+                flags['main-branch-name'],
                 flags['develop-branch-name'],
             );
         }
 
         await this.pushBranches(
-            flags['master-branch-name'],
+            flags['main-branch-name'],
             flags['develop-branch-name'],
             flags['no-push'],
         );
