@@ -64,8 +64,8 @@
     "prepack": "yarn build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md",
-    "release": "yarn build && ./bin/run --main-branch-name=main --during-release-post-hook=\"npm run version && git commit -am 'Updated the readme'\"",
-    "release:major": "yarn build && ./bin/run --main-branch-name=main --during-release-post-hook=\"npm run version && git commit -am 'Updated the readme'\" --commit-and-tag-version-flags=\"--release-as=major\"",
+    "release": "yarn build && ./bin/run release --main-branch-name=main --during-release-post-hook=\"npm run version && git commit -am 'Updated the readme'\"",
+    "release:major": "yarn build && ./bin/run release --main-branch-name=main --during-release-post-hook=\"npm run version && git commit -am 'Updated the readme'\" --commit-and-tag-version-flags=\"--release-as=major\"",
     "build:tarballs": "oclif pack tarballs"
   },
   "engines": {
