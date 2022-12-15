@@ -69,7 +69,7 @@
     "build:tarballs": "oclif pack tarballs"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "bugs": "https://github.com/entrostat/entro-version/issues",
   "keywords": [
