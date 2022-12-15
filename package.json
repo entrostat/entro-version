@@ -45,7 +45,6 @@
     "bin": "entro-version",
     "dirname": "entro-version",
     "commands": "./dist/commands",
-    "default": "release",
     "plugins": [
       "@oclif/plugin-help"
     ],
