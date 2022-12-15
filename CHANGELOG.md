@@ -1,6 +1,27 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [2.0.0](https://github.com/entrostat/entro-version/compare/v1.7.0...v2.0.0) (2022-12-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cli:** Updated the CLI to use the new Oclif version and become a multi-command CLI
+
+### Features
+
+* **cli:** Updated the CLI to use the new Oclif version and become a multi-command CLI ([a3d007a](https://github.com/entrostat/entro-version/commit/a3d007a106390af2e8ee4dc6f401ebc23882b2c8))
+
+
+### Bug Fixes
+
+* **release:** Bind the command to the logger because the loggers use "this" ([5786a6c](https://github.com/entrostat/entro-version/commit/5786a6c7ae89efb785ab2b02483e08cbe44ba29f))
+* **release:** Used the new branch naming flag and not the alias ([ff68731](https://github.com/entrostat/entro-version/commit/ff68731e4e5064f0f895e3a7b6ab66d6122a7e12))
+* **scripts:** Added the readme update ([06ed357](https://github.com/entrostat/entro-version/commit/06ed357abd66f52442e1b2eaf4019eada5edacbd))
+* **scripts:** Call the release script ([99499ef](https://github.com/entrostat/entro-version/commit/99499ef8d90efd3e9a8128d8a40516b7dc52bd11))
+* **scripts:** Changed the flags to use the new wording ([86e5f72](https://github.com/entrostat/entro-version/commit/86e5f72589aace61cd1a0c71670620c1f7160235))
+* **scripts:** Use the master branch name for now ([dccbff1](https://github.com/entrostat/entro-version/commit/dccbff1ee791177c2e50ec162090aaa4bdeeaf72))
 
 ## [1.7.0](https://github.com/entrostat/entro-version/compare/v1.6.0...v1.7.0) (2021-11-10)
 
