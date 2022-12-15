@@ -71,8 +71,8 @@ Maybe, like this package, you want to publish this to [https://npmjs.com](npmjs.
 $ npm install -g entro-version
 $ entro-version COMMAND
 running command...
-$ entro-version (-v|--version|version)
-entro-version/1.7.0 linux-x64 node-v14.17.3
+$ entro-version (--version)
+entro-version/2.0.0 linux-x64 node-v16.15.0
 $ entro-version --help [COMMAND]
 USAGE
   $ entro-version COMMAND
