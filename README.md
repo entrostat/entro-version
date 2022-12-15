@@ -79,3 +79,131 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+
+# Commands
+<!-- commands -->
+* [`entro-version help [COMMAND]`](#entro-version-help-command)
+* [`entro-version release`](#entro-version-release)
+* [`entro-version version:get`](#entro-version-versionget)
+* [`entro-version version:next`](#entro-version-versionnext)
+
+## `entro-version help [COMMAND]`
+
+Display help for entro-version.
+
+```
+USAGE
+  $ entro-version help [COMMAND] [-n]
+
+ARGUMENTS
+  COMMAND  Command to show help for.
+
+FLAGS
+  -n, --nested-commands  Include all nested commands in the output.
+
+DESCRIPTION
+  Display help for entro-version.
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.19/src/commands/help.ts)_
+
+## `entro-version release`
+
+Creates a release using git-flow
+
+```
+USAGE
+  $ entro-version release [-p <value>] [-P <value>] [-s] [-f <value>] [-M <value>] [-d <value>] [-p] [-m
+    <value>] [-b <value>] [-B]
+
+FLAGS
+  -B, --skip-base-branch-merge-to-develop       If the --base-branch option is specified, it will automatically merge
+                                                into develop after the release is completed. If you would like to skip
+                                                this merge then use this flag. This might be useful if you want to
+                                                create a release on a staging branch or something to that effect.
+  -M, --main-branch-name=<value>                [default: master] The name of the master branch
+  -P, --during-release-post-hook=<value>        Any commands to run during the release, after standard-version
+  -b, --base-branch=<value>                     If the release must be generated from any branch other than develop (eg.
+                                                master) then you would specify this base branch. Leave this empty if
+                                                there it is not required.
+  -d, --develop-branch-name=<value>             [default: develop] The name of the develop branch
+  -f, --commit-and-tag-version-flag=<value>...  [default: ] Flags to add to the commit-and-tag-version command
+  -m, --release-message=<value>                 [default: Merging release] The description that you would like to give
+                                                your release (this shows up on the releases page in Github). This also
+                                                replaces {{version}} with the newly created version if you want to
+                                                include that in your message.
+  -p, --during-release-pre-hook=<value>         Any commands to run during the release, before standard-version
+  -p, --no-push                                 Do not push the develop and master branches (with --follow-tags) during
+                                                the release
+  -s, --no-sign                                 Do not sign during the release using your GPG key
+
+DESCRIPTION
+  Creates a release using git-flow
+
+EXAMPLES
+  $ entro-version release
+
+  $ entro-version release --during-release-post-hook="npm run publish && git commit -am 'Updated the readme'"
+
+  $ entro-version release --commit-and-tag-version-flag="--prerelease='alpha'"
+
+  $ entro-version release --commit-and-tag-version-flag="--release-as=major"
+```
+
+_See code: [dist/commands/release.ts](https://github.com/entrostat/entro-version/blob/v2.0.0/dist/commands/release.ts)_
+
+## `entro-version version:get`
+
+Retrieves the current version of the project
+
+```
+USAGE
+  $ entro-version version:get [-i <value>] [-k <value>] [-P <value>]
+
+FLAGS
+  -P, --prefix=<value>  The version prefix to add (eg. "v")
+  -i, --input=<value>   [default: ./package.json] The path to the JSON file to use to retrieve the version
+  -k, --key=<value>     [default: version] The key in the JSON file that holds the version
+
+DESCRIPTION
+  Retrieves the current version of the project
+
+EXAMPLES
+  $ entro-version version:get
+
+  $ entro-version version:get --input="./src/my-proj/package.json"
+
+  $ entro-version version:get --input="./src/version.json" --key="ver"
+
+  $ entro-version version:get --prefix="v"
+
+  $ entro-version version:get --prefix="staging-v"
+```
+
+_See code: [dist/commands/version/get.ts](https://github.com/entrostat/entro-version/blob/v2.0.0/dist/commands/version/get.ts)_
+
+## `entro-version version:next`
+
+Returns what the next version would be
+
+```
+USAGE
+  $ entro-version version:next [-f <value>] [-P <value>]
+
+FLAGS
+  -P, --prefix=<value>                          The version prefix to add (eg. "v")
+  -f, --commit-and-tag-version-flag=<value>...  [default: ] Flags to add to the commit-and-tag-version command
+
+DESCRIPTION
+  Returns what the next version would be
+
+EXAMPLES
+  $ entro-version version:next
+
+  $ entro-version version:next --commit-and-tag-version-flag="--release-as=major"
+
+  $ entro-version version:next --prefix=v
+```
+
+_See code: [dist/commands/version/next.ts](https://github.com/entrostat/entro-version/blob/v2.0.0/dist/commands/version/next.ts)_
+<!-- commandsstop -->
