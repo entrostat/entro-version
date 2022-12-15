@@ -7,9 +7,9 @@ entro-version
 [![License](https://img.shields.io/npm/l/entro-version.svg?style=for-the-badge)](https://github.com/entrostat/entro-version/blob/master/package.json)
 
 
-It's a bit annoying when you use `git-flow` and `standard-version` in the same project because you want to know the version before you create the release branch. So you need to run `standard-version` as a dry run to get that to make the release. You also need to ensure that the release itself has the correct changes and tag so that the changelog gets generated correctly.
+It's a bit annoying when you use `git-flow` and `commit-and-tag-version` in the same project because you want to know the version before you create the release branch. So you need to run `commit-and-tag-version` as a dry run to get that to make the release. You also need to ensure that the release itself has the correct changes and tag so that the changelog gets generated correctly.
 
-This CLI was made with the intention to combine them both together so that you can have proper `git-flow` releases while using `standard-version` to generate the version and changelog. You can use it in it's simplest form by running `entro-version` on the develop branch, or you can make it more complicated by adding release hooks. For instance, if you need to generate some `.yaml` files with the new version number or something like that, then you'd run a `post-hook` where it'll create the `.yaml` files and commit them before completing the release. I'm using this CLI to run releases for this CLI :P So check after `v1.2.11` in the changelog for a working example... It took me that long to get this working :P!
+This CLI was made with the intention to combine them both together so that you can have proper `git-flow` releases while using `commit-and-tag-version` to generate the version and changelog. You can use it in it's simplest form by running `entro-version` on the develop branch, or you can make it more complicated by adding release hooks. For instance, if you need to generate some `.yaml` files with the new version number or something like that, then you'd run a `post-hook` where it'll create the `.yaml` files and commit them before completing the release. I'm using this CLI to run releases for this CLI :P So check after `v1.2.11` in the changelog for a working example... It took me that long to get this working :P!
 
 Each time I make a change and I'm ready for a release, I run `npm run release` which in turn runs:
 
@@ -28,8 +28,15 @@ npm install -g entro-version
 You would now be able to use it in a `git-flow` context. So you can cd into your repo and simply run `entro-version` to release a new version. To get some examples of how the CLI can be used, run:
 
 ```bash
-entro-version --help
+entro-version help
 ```
+
+The default command that runs is:
+```bash
+entro-version release
+```
+
+But there are other commands to help with versioning that you'll see when you run `help`. The `--help` command will show help for the `release` command because that's the default.
 
 # Some Handy Examples
 Below are a few real world examples that may help you determine how to use this in your project.
