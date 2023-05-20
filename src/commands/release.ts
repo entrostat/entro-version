@@ -124,7 +124,7 @@ export default class Release extends Command {
                 noPush,
             );
         } else {
-            await this.runPreRelease(
+            await this.runCustomBranchRelease(
                 commitAndTagVersionFlags,
                 duringReleasePreHook,
                 noSign,
@@ -212,7 +212,7 @@ export default class Release extends Command {
         await this.pushBranches(mainBranchName, developBranchName, noPush);
     }
 
-    private async runPreRelease(
+    private async runCustomBranchRelease(
         commitAndTagVersionFlags: string[],
         duringReleasePreHook: string | undefined,
         noSign: boolean,
