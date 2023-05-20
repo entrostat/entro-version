@@ -158,7 +158,7 @@ export default class Release extends Command {
         const dryRunOutput = await getCommitAndTagVersionDryRunOutput(
             commitAndTagVersionFlags,
         );
-        const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+.+)/gim;
+        const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+(.+)?)/gim;
         const newVersion: string = (tagVersionRegex.exec(dryRunOutput) ||
             [])[1];
 
@@ -222,36 +222,40 @@ export default class Release extends Command {
         noPush: boolean,
         targetBranch: string,
     ) {
-        // 1. Checkout the develop branch
+        // 1. Checkout the target branch
         await executeCommand(
-            `git checkout ${developBranchName}`,
+            `git checkout ${targetBranch}`,
             this.log.bind(this),
             this.error.bind(this),
         );
 
         // 2. Calculate the tracking prerelease name and the prerelease name
         const prereleaseName = sanitiseBranchName(targetBranch);
-        const trackingPrereleaseName = `${prereleaseName}.branch`;
 
         const dryRunOutput = await getCommitAndTagVersionDryRunOutput(
-            commitAndTagVersionFlags.concat([
-                `--prerelease=${trackingPrereleaseName}`,
-            ]),
+            commitAndTagVersionFlags.concat([`--prerelease=${prereleaseName}`]),
         );
 
         // 3. Calculate the versions
         const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+.+)/gim;
-        const newTrackingVersion: string = (tagVersionRegex.exec(
-            dryRunOutput,
-        ) || [])[1];
-        const newVersion: string = newTrackingVersion.replace(
-            `${prereleaseName}.branch`,
-            prereleaseName,
-        );
+        const newVersion: string = (tagVersionRegex.exec(dryRunOutput) ||
+            [])[1];
 
         // 4. Create a release from the develop branch
         await executeCommand(
+            `git checkout ${developBranchName}`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+        await executeCommand(
             `git checkout -b release/${newVersion} ${developBranchName}`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+
+        // 4.1 Merge the target branch into the release branch
+        await executeCommand(
+            `git merge ${targetBranch} --no-ff --no-edit --strategy-option theirs`,
             this.log.bind(this),
             this.error.bind(this),
         );
@@ -270,7 +274,7 @@ export default class Release extends Command {
             commitAndTagVersionFlags.concat([
                 '--skip.tag',
                 noSign ? '' : '--sign',
-                `--prerelease=${trackingPrereleaseName}`,
+                `--prerelease=${prereleaseName}`,
             ]),
         );
 
@@ -284,6 +288,11 @@ export default class Release extends Command {
         }
 
         // 8. Merge the release into the target branch
+        await executeCommand(
+            `git checkout ${targetBranch}`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
         const commitMessage = releaseMessage
             .replace(/{{version}}/g, newVersion)
             .replace(/"/g, '\\"');
@@ -303,11 +312,6 @@ export default class Release extends Command {
         // 10. Tag the target branch with the new tag and the develop branch with the tracking tag
         await executeCommand(
             `git tag -a ${newVersion} -m "${commitMessage}"`,
-            this.log.bind(this),
-            this.error.bind(this),
-        );
-        await executeCommand(
-            `git checkout ${developBranchName} && git tag -a ${newTrackingVersion} -m "${commitMessage}"`,
             this.log.bind(this),
             this.error.bind(this),
         );

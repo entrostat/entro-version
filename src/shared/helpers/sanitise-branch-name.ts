@@ -3,5 +3,5 @@
  * @param branchName The branch name to sanitise.
  */
 export function sanitiseBranchName(branchName: string) {
-    return branchName.replace(/[^a-zA-Z0-9-]/g, '-');
+    return branchName.replace(/[^a-zA-Z0-9]/g, '');
 }
