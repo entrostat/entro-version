@@ -2,6 +2,7 @@ import { Command, Flags } from '@oclif/core';
 import { executeCommand } from '../shared/execute-command';
 import { getCommitAndTagVersionDryRunOutput } from '../shared/get-commit-and-tag-version-dry-run-output';
 import { commitAndTagVersionRun } from '../shared/commit-and-tag-version-run';
+import { sanitiseBranchName } from '../shared/helpers/sanitise-branch-name';
 
 export default class Release extends Command {
     static description = 'Creates a release using git-flow';
@@ -71,45 +72,119 @@ export default class Release extends Command {
             description:
                 'If the --base-branch option is specified, it will automatically merge into develop after the release is completed. If you would like to skip this merge then use this flag. This might be useful if you want to create a release on a staging branch or something to that effect.',
         }),
+        'target-branch': Flags.string({
+            char: 't',
+            required: false,
+            description:
+                'You may want to create a release into a different branch. If this is not the same as your main branch, it is treated as a pre-release and tagged accordingly.',
+        }),
     };
 
     static args = [];
 
     public async run(): Promise<void> {
         const { flags } = await this.parse(Release);
-        const dryRunOutput = await getCommitAndTagVersionDryRunOutput(
-            flags['commit-and-tag-version-flag'],
+
+        // 1. Extract and type the flags
+        const baseBranch: string =
+            flags['base-branch'] || flags['develop-branch-name'];
+        const differentBaseBranch: boolean =
+            baseBranch !== flags['develop-branch-name'];
+        const noSign: boolean = flags['no-sign'];
+        const duringReleasePreHook: string | undefined =
+            flags['during-release-pre-hook'];
+        const duringReleasePostHook: string | undefined =
+            flags['during-release-post-hook'];
+        const commitAndTagVersionFlags: string[] =
+            flags['commit-and-tag-version-flag'];
+        const releaseMessage: string = flags['release-message'];
+        const skipBaseBranchMergeToDevelop: boolean =
+            flags['skip-base-branch-merge-to-develop'];
+        const mainBranchName: string = flags['main-branch-name'];
+        const developBranchName: string = flags['develop-branch-name'];
+        const noPush: boolean = flags['no-push'];
+
+        const targetBranch: string =
+            flags['target-branch'] || flags['main-branch-name'];
+        const isStandardRelease: boolean =
+            targetBranch === flags['main-branch-name'];
+
+        if (isStandardRelease) {
+            await this.runStandardRelease(
+                commitAndTagVersionFlags,
+                baseBranch,
+                duringReleasePreHook,
+                noSign,
+                duringReleasePostHook,
+                releaseMessage,
+                differentBaseBranch,
+                skipBaseBranchMergeToDevelop,
+                mainBranchName,
+                developBranchName,
+                noPush,
+            );
+        } else {
+            await this.runCustomBranchRelease(
+                commitAndTagVersionFlags,
+                duringReleasePreHook,
+                noSign,
+                duringReleasePostHook,
+                releaseMessage,
+                developBranchName,
+                noPush,
+                targetBranch,
+            );
+        }
+    }
+
+    private async runStandardRelease(
+        commitAndTagVersionFlags: string[],
+        baseBranch: string,
+        duringReleasePreHook: string | undefined,
+        noSign: boolean,
+        duringReleasePostHook: string | undefined,
+        releaseMessage: string,
+        differentBaseBranch: boolean,
+        skipBaseBranchMergeToDevelop: boolean,
+        mainBranchName: string,
+        developBranchName: string,
+        noPush: boolean,
+    ) {
+        await executeCommand(
+            `git checkout ${developBranchName}`,
+            this.log.bind(this),
+            this.error.bind(this),
         );
-        const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+)/gim;
-        const newVersion = (tagVersionRegex.exec(dryRunOutput) || [])[1];
-        const baseBranch = flags['base-branch'] || flags['develop-branch-name'];
-        const differentBaseBranch =
-            flags['base-branch'] &&
-            flags['base-branch'] !== flags['develop-branch-name'];
+        const dryRunOutput = await getCommitAndTagVersionDryRunOutput(
+            commitAndTagVersionFlags,
+        );
+        const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+(.+)?)/gim;
+        const newVersion: string = (tagVersionRegex.exec(dryRunOutput) ||
+            [])[1];
 
         await executeCommand(
             `git flow release start ${newVersion} ${baseBranch}`,
             this.log.bind(this),
             this.warn.bind(this),
         );
-        if (flags['during-release-pre-hook']) {
+        if (duringReleasePreHook) {
             await executeCommand(
-                flags['during-release-pre-hook'],
+                duringReleasePreHook,
                 this.log.bind(this),
                 this.error.bind(this),
             );
         }
 
         await commitAndTagVersionRun(
-            flags['commit-and-tag-version-flag'].concat([
+            commitAndTagVersionFlags.concat([
                 '--skip.tag',
-                flags['no-sign'] ? '' : '--sign',
+                noSign ? '' : '--sign',
             ]),
         );
 
-        if (flags['during-release-post-hook']) {
+        if (duringReleasePostHook) {
             await executeCommand(
-                flags['during-release-post-hook'],
+                duringReleasePostHook,
                 this.log.bind(this),
                 this.error.bind(this),
             );
@@ -118,32 +193,131 @@ export default class Release extends Command {
         await executeCommand(
             // See https://stackoverflow.com/a/14553458/3016520 for info on how I
             //  got this environment export
-            `export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion} -m "${flags[
-                'release-message'
-            ]
+            `export GIT_MERGE_AUTOEDIT=no && git flow release finish ${newVersion} -m "${releaseMessage
                 .replace(/{{version}}/g, newVersion)
                 .replace(/"/g, '\\"')}"`,
             this.log.bind(this),
             this.error.bind(this),
         );
 
-        if (
-            differentBaseBranch &&
-            !flags['skip-base-branch-merge-to-develop']
-        ) {
+        if (differentBaseBranch && !skipBaseBranchMergeToDevelop) {
             // In this case develop is not being used to create the release so once
             // the release exists, we need to merge it into develop
             await this.mergeMasterIntoDevelop(
-                flags['main-branch-name'],
-                flags['develop-branch-name'],
+                mainBranchName,
+                developBranchName,
             );
         }
 
-        await this.pushBranches(
-            flags['main-branch-name'],
-            flags['develop-branch-name'],
-            flags['no-push'],
+        await this.pushBranches(mainBranchName, developBranchName, noPush);
+    }
+
+    private async runCustomBranchRelease(
+        commitAndTagVersionFlags: string[],
+        duringReleasePreHook: string | undefined,
+        noSign: boolean,
+        duringReleasePostHook: string | undefined,
+        releaseMessage: string,
+        developBranchName: string,
+        noPush: boolean,
+        targetBranch: string,
+    ) {
+        // 1. Checkout the target branch
+        await executeCommand(
+            `git checkout ${targetBranch}`,
+            this.log.bind(this),
+            this.error.bind(this),
         );
+
+        // 2. Calculate the tracking prerelease name and the prerelease name
+        const prereleaseName = sanitiseBranchName(targetBranch);
+
+        const dryRunOutput = await getCommitAndTagVersionDryRunOutput(
+            commitAndTagVersionFlags.concat([`--prerelease=${prereleaseName}`]),
+        );
+
+        // 3. Calculate the versions
+        const tagVersionRegex = /tagging release (v\d+\.\d+\.\d+.+)/gim;
+        const newVersion: string = (tagVersionRegex.exec(dryRunOutput) ||
+            [])[1];
+
+        // 4. Create a release from the develop branch
+        await executeCommand(
+            `git checkout ${developBranchName}`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+        await executeCommand(
+            `git checkout -b release/${newVersion} ${developBranchName}`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+
+        // 4.1 Merge the target branch into the release branch
+        await executeCommand(
+            `git merge ${targetBranch} --no-ff --no-edit --strategy-option theirs`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+
+        // 5. Run the pre hook if there is one
+        if (duringReleasePreHook) {
+            await executeCommand(
+                duringReleasePreHook,
+                this.log.bind(this),
+                this.error.bind(this),
+            );
+        }
+
+        // 6. Update the changelog
+        await commitAndTagVersionRun(
+            commitAndTagVersionFlags.concat([
+                '--skip.tag',
+                noSign ? '' : '--sign',
+                `--prerelease=${prereleaseName}`,
+            ]),
+        );
+
+        // 7. Run the post hook if there is one
+        if (duringReleasePostHook) {
+            await executeCommand(
+                duringReleasePostHook,
+                this.log.bind(this),
+                this.error.bind(this),
+            );
+        }
+
+        // 8. Merge the release into the target branch
+        await executeCommand(
+            `git checkout ${targetBranch}`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+        const commitMessage = releaseMessage
+            .replace(/{{version}}/g, newVersion)
+            .replace(/"/g, '\\"');
+        await executeCommand(
+            `export GIT_MERGE_AUTOEDIT=no && git merge --no-ff --no-edit --strategy-option theirs release/${newVersion} -m "${commitMessage}"`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+
+        // 9. Remove the release branch
+        await executeCommand(
+            `git branch -D release/${newVersion}`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+
+        // 10. Tag the target branch with the new tag and the develop branch with the tracking tag
+        await executeCommand(
+            `git tag -a ${newVersion} -m "${commitMessage}"`,
+            this.log.bind(this),
+            this.error.bind(this),
+        );
+
+        // 11. Push changes
+        await this.pushBranches(targetBranch, developBranchName, noPush);
     }
 
     private async mergeMasterIntoDevelop(
